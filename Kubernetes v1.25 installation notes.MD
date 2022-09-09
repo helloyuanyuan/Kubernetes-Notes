@@ -1,10 +1,12 @@
 # Kubernetes v1.25 installation notes
 
----
+## Backgroud
 
-## init ENV
+Kubernetes v1.25 removed docker-shim
 
----
+![Kubernetes & Docker](https://raw.githubusercontent.com/helloyuanyuan/Kubernetes-Notes/master/Kubernetes%20%26%20Docker.svg)
+
+## Init ENV
 
 vagrant up 1 master node & 2 worker nodes
 check hostname with:
@@ -99,11 +101,7 @@ check docker Cgroup driver: systemd
   sudo systemctl restart docker.service
 ~~~
 
----
-
-## install kubeadm kubelet kubectl
-
----
+## Install kubeadm kubelet kubectl
 
 Reference Doc
 
@@ -155,11 +153,7 @@ Reference Doc
     sudo apt-mark hold kubelet kubeadm kubectl
     ~~~
 
----
-
-## install cri-dockerd
-
----
+## Install cri-dockerd
 
 Project: <https://github.com/Mirantis/cri-dockerd>
 
@@ -167,17 +161,13 @@ Project: <https://github.com/Mirantis/cri-dockerd>
   sudo dpkg -i cri-dockerd_0.2.5.3-0.ubuntu-focal_amd64.deb
 ~~~
 
----
-
-## init Kubernetes cluster with kubeadm init
-
----
+## Init Kubernetes cluster with kubeadm
 
 Reference Doc
 
 - <https://kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm>
 
-### Master Node
+### master Node
 
 ~~~bash
   sudo kubeadm init \
@@ -235,7 +225,7 @@ Reference Doc
 
     Wait until each pod has the ***STATUS*** of ***Running.***
 
-### Worker Node
+### worker Node
 
 Response from ***kubeadm init***
 
@@ -245,11 +235,7 @@ Response from ***kubeadm init***
 sudo kubeadm join 10.0.0.100:6443 --token 70q2ho.b62bdamrzj4nye1j --discovery-token-ca-cert-hash sha256:05f4ce3c999c970ef31a4c2ade45b1ce0aa215c2ec6e5898af72fb1bd3b896dd --cri-socket unix:///run/cri-dockerd.sock
 ~~~
 
----
-
-## kubectl autocompletion
-
----
+## Autocompletion kubectl
 
 Reference Doc
 
@@ -262,11 +248,7 @@ Reference Doc
   exec bash
 ~~~
 
----
-
 ## Reset cluster
-
----
 
 ***worker*** node first, then ***master*** node
 
@@ -276,11 +258,7 @@ Reference Doc
   reboot
 ~~~
 
----
-
 ## BVT
-
----
 
 ~~~bash
   kubectl create deployment demoapp --image=ikubernetes/demoapp:v1.0 --replicas=2
